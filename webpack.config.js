@@ -5,21 +5,20 @@ const rulesForJavascript = {
   test: /\.js$/,
   loader: "babel-loader",
   options: {
-    presets: [
-      [
-        "@babel/preset-react",
-        {
-          runtime: "automatic",
-        },
-      ],
-    ],
+    presets: [["@babel/preset-react"]],
   },
 };
 const rulesForStyles = {
   test: /\.css$/,
   use: ["style-loader", "css-loader"],
 };
-const rules = [rulesForJavascript, rulesForStyles];
+const rulesForTypescript = {
+  test: /\.tsx?$/,
+  use: "ts-loader",
+  exclude: /node_modules/,
+};
+
+const rules = [rulesForJavascript, rulesForStyles, rulesForTypescript];
 
 module.exports = {
   output: {
@@ -29,8 +28,11 @@ module.exports = {
   module: {
     rules: rules,
   },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
   devServer: {
-      open: true,
-      port: 3000,
-  }
+    open: true,
+    port: 3000,
+  },
 };
